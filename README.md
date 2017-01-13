@@ -14,4 +14,6 @@ const counterReducer = reducer(r => {
 
 ## Changelog
 
+- v1.1.0: Adds integration tests.
+
 - v1.0.0: Initial prototype.

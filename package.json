@@ -1,8 +1,14 @@
 {
   "name": "redux-reducer-dsl",
   "description": "Define Redux reducers with a DSL",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "author": "Ryan Aghdam <ryan@ryanaghdam.com>",
-  "repository": "ryanaghdam/redux-reducer-dsl"
+  "repository": "ryanaghdam/redux-reducer-dsl",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "devDependencies": {
+    "tape": "^4.6.3"
+  }
 }
