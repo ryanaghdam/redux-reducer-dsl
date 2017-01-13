@@ -1,0 +1,8 @@
+{
+  "name": "redux-reducer-dsl",
+  "description": "Define Redux reducers with a DSL",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Ryan Aghdam <ryan@ryanaghdam.com>",
+  "repository": "ryanaghdam/redux-reducer-dsl"
+}
