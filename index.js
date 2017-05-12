@@ -11,6 +11,15 @@ function createReducer(callback) {
 
   return function (previousState, action) {
     var handler = registeredActions[action.type];
+
+    if (typeof handler !== 'function') {
+      if (typeof previousState === 'undefined') {
+        return {};
+      } else {
+        return previousState;
+      }
+    }
+
     return handler(previousState, action);
   }
 }

@@ -15,6 +15,26 @@ function onDecrement(state, action) {
   return { value: state.value - action.amount || 1 };
 }
 
+test('initialization', function (t) {
+  var counterReducer = reducer(function (r) {
+    r.action('RESET', onReset);
+    r.action('INCREMENT', onIncrement);
+    r.action('DECREMENT', onDecrement);
+  });
+
+  t.deepEqual(
+    counterReducer({ a: 1 }, { type: '@@redux/INIT' }),
+    { a: 1 }
+  );
+
+  t.deepEqual(
+    counterReducer(undefined, { type: '@@redux/INIT' }),
+    {}
+  );
+
+  t.end();
+});
+
 test('integration tests', function (t) {
   var counterReducer = reducer(function (r) {
     r.action('RESET', onReset);
