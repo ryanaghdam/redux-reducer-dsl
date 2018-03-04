@@ -1,4 +1,4 @@
-export const handlerMatchesAction = action => handler => {
+export const handlerMatchesAction = action => (handler) => {
   switch (typeof handler.type) {
     case 'string':
       return handler.type === action.type;
@@ -7,18 +7,20 @@ export const handlerMatchesAction = action => handler => {
     default:
       return false;
   }
-}
+};
 
 export const applyActions = actions => (state, action) =>
   actions.reduce((acc, a) => a.handler(acc, action), state);
 
-export default callback => {
-  let registeredActions = [];
+export default (callback) => {
+  const registeredActions = [];
   let defaultState = {};
 
   callback({
     action: (type, handler) => registeredActions.push({ type, handler }),
-    defaultState: s => defaultState = s
+    defaultState: (userSuppliedState) => {
+      defaultState = userSuppliedState;
+    },
   });
 
   return (previousState, action) => {

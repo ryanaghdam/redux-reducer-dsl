@@ -1,7 +1,7 @@
 import test from 'tape';
-import reducer from './index.js';
+import reducer from './index';
 
-const onReset = (state, action) => ({ value: 0 });
+const onReset = () => ({ value: 0 });
 
 const onIncrement = (state, action) =>
   ({ value: state.value + action.amount || 1 });
@@ -12,8 +12,8 @@ const onDecrement = (state, action) =>
 const addOne = n => n + 1;
 const subOne = n => n - 1;
 
-test('initialization', t => {
-  const counterReducer = reducer(r => {
+test('initialization', (t) => {
+  const counterReducer = reducer((r) => {
     r.action('RESET', onReset);
     r.action('INCREMENT', onIncrement);
     r.action('DECREMENT', onDecrement);
@@ -21,19 +21,19 @@ test('initialization', t => {
 
   t.deepEqual(
     counterReducer({ a: 1 }, { type: '@@redux/INIT' }),
-    { a: 1 }
+    { a: 1 },
   );
 
   t.deepEqual(
     counterReducer(undefined, { type: '@@redux/INIT' }),
-    {}
+    {},
   );
 
   t.end();
 });
 
-test('integration tests', t => {
-  const counterReducer = reducer(r => {
+test('integration tests', (t) => {
+  const counterReducer = reducer((r) => {
     r.action('RESET', onReset);
     r.action('INCREMENT', onIncrement);
     r.action('DECREMENT', onDecrement);
@@ -41,48 +41,48 @@ test('integration tests', t => {
 
   t.deepEqual(
     counterReducer({}, { type: 'INCREMENT' }),
-    { value: 1 }
+    { value: 1 },
   );
 
   t.deepEqual(
     counterReducer({ value: 1 }, { type: 'INCREMENT', amount: 2 }),
-    { value: 3 }
+    { value: 3 },
   );
 
   t.deepEqual(
     counterReducer({ value: 2 }, { type: 'DECREMENT' }),
-    { value: 1 }
+    { value: 1 },
   );
 
   t.deepEqual(
     counterReducer({ value: 20 }, { type: 'DECREMENT', amount: 17 }),
-    { value: 3 }
+    { value: 3 },
   );
 
   t.deepEqual(
     counterReducer({}, { type: 'RESET' }),
-    { value: 0 }
+    { value: 0 },
   );
 
   t.end();
 });
 
-test('default value', t => {
-  const testReducer = reducer(r => {
+test('default value', (t) => {
+  const testReducer = reducer((r) => {
     r.defaultState(['ABC']);
     r.action('XYZ', state => [...state, 'XYZ']);
   });
 
   t.deepEqual(
     testReducer(undefined, { type: 'XYZ' }),
-    ['ABC', 'XYZ']
+    ['ABC', 'XYZ'],
   );
 
   t.end();
 });
 
-test('multiple handlers for same action', t => {
-  const testReducer = reducer(r => {
+test('multiple handlers for same action', (t) => {
+  const testReducer = reducer((r) => {
     r.defaultState(0);
     r.action('INCREMENT', addOne);
     r.action('INCREMENT', addOne);
@@ -91,14 +91,14 @@ test('multiple handlers for same action', t => {
 
   t.equal(
     testReducer(undefined, { type: 'INCREMENT' }),
-    3
+    3,
   );
 
   t.end();
 });
 
-test('function handler types', t => {
-  const testReducer = reducer(r => {
+test('function handler types', (t) => {
+  const testReducer = reducer((r) => {
     r.defaultState(0);
     r.action(type => type !== 'DECREMENT', addOne);
     r.action(type => type === 'INCREMENT', addOne);
@@ -107,17 +107,17 @@ test('function handler types', t => {
 
   t.equal(
     testReducer(undefined, { type: 'INCREMENT' }),
-    2
+    2,
   );
 
   t.equal(
     testReducer(undefined, { type: 'XXXINCREMENT' }),
-    1
+    1,
   );
 
   t.equal(
     testReducer(5, { type: 'DECREMENT' }),
-    4
+    4,
   );
 
   t.end();
