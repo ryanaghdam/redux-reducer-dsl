@@ -9,6 +9,9 @@ const onIncrement = (state, action) =>
 const onDecrement = (state, action) =>
   ({ value: state.value - action.amount || 1 });
 
+const addOne = n => n + 1;
+const subOne = n => n - 1;
+
 test('initialization', t => {
   const counterReducer = reducer(r => {
     r.action('RESET', onReset);
@@ -79,8 +82,6 @@ test('default value', t => {
 });
 
 test('multiple handlers for same action', t => {
-  const addOne = n => n + 1;
-
   const testReducer = reducer(r => {
     r.defaultState(0);
     r.action('INCREMENT', addOne);
@@ -91,6 +92,32 @@ test('multiple handlers for same action', t => {
   t.equal(
     testReducer(undefined, { type: 'INCREMENT' }),
     3
+  );
+
+  t.end();
+});
+
+test('function handler types', t => {
+  const testReducer = reducer(r => {
+    r.defaultState(0);
+    r.action(type => type !== 'DECREMENT', addOne);
+    r.action(type => type === 'INCREMENT', addOne);
+    r.action('DECREMENT', subOne);
+  });
+
+  t.equal(
+    testReducer(undefined, { type: 'INCREMENT' }),
+    2
+  );
+
+  t.equal(
+    testReducer(undefined, { type: 'XXXINCREMENT' }),
+    1
+  );
+
+  t.equal(
+    testReducer(5, { type: 'DECREMENT' }),
+    4
   );
 
   t.end();

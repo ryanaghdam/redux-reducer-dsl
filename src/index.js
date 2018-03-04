@@ -1,5 +1,13 @@
-export const handlerMatchesAction = action => handler =>
-  handler.type === action.type;
+export const handlerMatchesAction = action => handler => {
+  switch (typeof handler.type) {
+    case 'string':
+      return handler.type === action.type;
+    case 'function':
+      return handler.type(action.type);
+    default:
+      return false;
+  }
+}
 
 export const applyActions = actions => (state, action) =>
   actions.reduce((acc, a) => a.handler(acc, action), state);
