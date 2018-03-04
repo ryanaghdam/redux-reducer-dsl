@@ -1,14 +1,27 @@
 {
   "name": "redux-reducer-dsl",
   "description": "Define Redux reducers with a DSL",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "license": "MIT",
   "author": "Ryan Aghdam <ryan@ryanaghdam.com>",
   "repository": "ryanaghdam/redux-reducer-dsl",
+  "main": "./lib/index.js",
   "scripts": {
-    "test": "node test.js"
+    "build": "babel src --out-dir lib",
+    "pretest": "npm run lint && npm run build",
+    "test": "node ./lib/test.js",
+    "lint": "eslint src",
+    "prepublish": "npm run test",
+    "patch-release": "npm version patch && npm publish && git push --follow-tags",
+    "minor-release": "npm version minor && npm publish && git push --follow-tags",
+    "major-release": "npm version major && npm publish && git push --follow-tags"
   },
   "devDependencies": {
-    "tape": "^4.6.3"
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "tape": "4.9.0"
   }
 }
