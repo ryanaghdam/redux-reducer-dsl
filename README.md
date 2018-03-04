@@ -1,5 +1,7 @@
 # redux-reducer-dsl
 
+[![Build Status](https://travis-ci.org/ryanaghdam/redux-reducer-dsl.svg?branch=master)](https://travis-ci.org/ryanaghdam/redux-reducer-dsl)
+
 Define Redux reducers with a doman-specific language.
 
 ```javascript
