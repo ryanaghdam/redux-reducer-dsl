@@ -14,6 +14,8 @@ const counterReducer = reducer(r => {
 
 ## Changelog
 
+- v2.0.0: Rewrite with ES6. Support function predicate for action type
+
 - v1.1.0: Adds integration tests.
 
 - v1.0.0: Initial prototype.
