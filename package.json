@@ -9,7 +9,7 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "pretest": "npm run build",
-    "test": "node ./lib/test.js | tap-min",
+    "test": "node ./lib/test.js",
     "prepublish": "npm run test",
     "patch-release": "npm version patch && npm publish && git push --follow-tags",
     "minor-release": "npm version minor && npm publish && git push --follow-tags",
@@ -18,7 +18,6 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "tap-min": "^1.2.2",
     "tape": "4.9.0"
   }
 }

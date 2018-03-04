@@ -64,3 +64,34 @@ test('integration tests', t => {
   t.end();
 });
 
+test('default value', t => {
+  const testReducer = reducer(r => {
+    r.defaultState(['ABC']);
+    r.action('XYZ', state => [...state, 'XYZ']);
+  });
+
+  t.deepEqual(
+    testReducer(undefined, { type: 'XYZ' }),
+    ['ABC', 'XYZ']
+  );
+
+  t.end();
+});
+
+test('multiple handlers for same action', t => {
+  const addOne = n => n + 1;
+
+  const testReducer = reducer(r => {
+    r.defaultState(0);
+    r.action('INCREMENT', addOne);
+    r.action('INCREMENT', addOne);
+    r.action('INCREMENT', addOne);
+  });
+
+  t.equal(
+    testReducer(undefined, { type: 'INCREMENT' }),
+    3
+  );
+
+  t.end();
+});
