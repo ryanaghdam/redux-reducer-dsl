@@ -1,22 +1,16 @@
-'use strict';
+import test from 'tape';
+import reducer from './index.js';
 
-var test = require('tape');
-var reducer = require('.');
+const onReset = (state, action) => ({ value: 0 });
 
-function onReset(state, action) {
-  return { value: 0 };
-}
+const onIncrement = (state, action) =>
+  ({ value: state.value + action.amount || 1 });
 
-function onIncrement(state, action) {
-  return { value: state.value + action.amount || 1 };
-};
+const onDecrement = (state, action) =>
+  ({ value: state.value - action.amount || 1 });
 
-function onDecrement(state, action) {
-  return { value: state.value - action.amount || 1 };
-}
-
-test('initialization', function (t) {
-  var counterReducer = reducer(function (r) {
+test('initialization', t => {
+  const counterReducer = reducer(r => {
     r.action('RESET', onReset);
     r.action('INCREMENT', onIncrement);
     r.action('DECREMENT', onDecrement);
@@ -35,8 +29,8 @@ test('initialization', function (t) {
   t.end();
 });
 
-test('integration tests', function (t) {
-  var counterReducer = reducer(function (r) {
+test('integration tests', t => {
+  const counterReducer = reducer(r => {
     r.action('RESET', onReset);
     r.action('INCREMENT', onIncrement);
     r.action('DECREMENT', onDecrement);
@@ -69,3 +63,4 @@ test('integration tests', function (t) {
 
   t.end();
 });
+
